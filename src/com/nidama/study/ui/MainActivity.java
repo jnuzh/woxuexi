@@ -49,13 +49,9 @@ public class MainActivity extends Activity {
 
 		mapController.enableClick(true);
 		
+		npcManager=new NPCManager();
 		npcManager.load();
-        NPCOverLay npcOverLay=new NPCOverLay(mapView,MainActivity.this);
-        for( NPCData npcData : npcManager.getNPCers())
-        {
-        	npcOverLay.addItem(npcManager.NPCDataToNPCOverlayItem(npcData));
-        }
-        npcOverLay.setLayoutId(R.layout.view_multiple_choices);
+        NPCOverlay npcOverLay=new NPCOverlay(mapView,MainActivity.this);
         mapView.getOverlays().add(npcOverLay); 
         mapView.refresh();   
 

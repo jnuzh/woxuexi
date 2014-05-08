@@ -18,11 +18,13 @@ import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.baidu.platform.comapi.map.Projection;
 import com.nidama.study.R;
+import com.nidama.study.data.NPCData;
+import com.nidama.study.engine.NPCManager;
 
 
-public class NPCOverLay extends ItemizedOverlay<OverlayItem> {
-    private List<OverlayItem> GeoList = new ArrayList<OverlayItem>();  
+public class NPCOverlay extends ItemizedOverlay<OverlayItem> {
     private Context context;
+	NPCManager npcManager=null;
  
     private LinearLayout popupLinear = null;
     // 这是弹出窗口的内容部分
@@ -38,24 +40,25 @@ public class NPCOverLay extends ItemizedOverlay<OverlayItem> {
         this.layoutId = layoutId;
     }
   
-    public NPCOverLay(MapView mapView, Context context){  
+    public NPCOverlay(MapView mapView, Context context){  
     	//default marker
         super(context.getResources().getDrawable(R.drawable.ic_launcher),mapView);
-    	
+
         this.context=context;
-        
         this.popupLinear = new LinearLayout(context);
         this.mapView = mapView;
+        
+        for( NPCData npcData : npcManager.getNPCers())
+        {
+        	this.addItem(npcManager.NPCDataToNPCOverlayItem(npcData));
+        }
+        this.setLayoutId(R.layout.view_multiple_choices);
+
         popupLinear.setOrientation(LinearLayout.VERTICAL);
         popupLinear.setVisibility(View.GONE);
         projection = mapView.getProjection();
        
     } 
-    @Override
-    public void addItem(OverlayItem overlayItem){
-    	super.addItem(overlayItem);
-    	
-    }
 
     private boolean createPopupView() {
         // TODO Auto-generated method stub

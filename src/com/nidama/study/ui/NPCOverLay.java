@@ -1,4 +1,4 @@
-package com.nidama.study;
+package com.nidama.study.ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +17,13 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.baidu.platform.comapi.map.Projection;
+import com.nidama.study.R;
 
 
 public class NPCOverLay extends ItemizedOverlay<OverlayItem> {
     private List<OverlayItem> GeoList = new ArrayList<OverlayItem>();  
-    private Context mContext;
-  
-    private double mLat1 = 22.254836;//39.9022; // point1纬度  
-    private double mLon1 = 113.538858;//116.3822; // point1经度  
-    
-    
+    private Context context;
+ 
     private LinearLayout popupLinear = null;
     // 这是弹出窗口的内容部分
     private View popupView = null;
@@ -41,28 +38,30 @@ public class NPCOverLay extends ItemizedOverlay<OverlayItem> {
         this.layoutId = layoutId;
     }
   
-    public NPCOverLay(Drawable marker, MapView mapView, Context context){  
-        super(marker,mapView);
-        this.mContext=context;
-        // 用给定的经纬度构造GeoPoint，单位是微度 (度 * 1E6)  
-        GeoPoint p1 = new GeoPoint((int)(mLat1 * 1E6), (int)(mLon1 * 1E6));
-        OverlayItem item1 = new OverlayItem(p1,"Mr. Chen","office");
-        item1.setMarker(marker);
+    public NPCOverLay(MapView mapView, Context context){  
+    	//default marker
+        super(context.getResources().getDrawable(R.drawable.ic_launcher),mapView);
+    	
+        this.context=context;
         
         this.popupLinear = new LinearLayout(context);
         this.mapView = mapView;
         popupLinear.setOrientation(LinearLayout.VERTICAL);
         popupLinear.setVisibility(View.GONE);
         projection = mapView.getProjection();
-        
-        this.addItem(item1);
-    }  
+       
+    } 
+    @Override
+    public void addItem(OverlayItem overlayItem){
+    	super.addItem(overlayItem);
+    	
+    }
 
     private boolean createPopupView() {
         // TODO Auto-generated method stub
         if (layoutId == 0)
             return false;
-        popupView = LayoutInflater.from(mContext).inflate(layoutId, null);
+        popupView = LayoutInflater.from(context).inflate(layoutId, null);
         /*popupView.setBackgroundResource(R.drawable.);
         ImageView dialogStyle = new ImageView(context);
         dialogStyle.setImageDrawable(context.getResources().getDrawable(

@@ -11,13 +11,14 @@ import android.support.v4.view.ViewPager.LayoutParams;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class PopupView {
 
 	View popupView=null;
 
 	Context context=null;
-	 private MapView mapView = null;
+	private MapView mapView = null;
     private LinearLayout popupLinear = null;
 	
 	
@@ -28,6 +29,10 @@ public class PopupView {
         this.popupLinear = new LinearLayout(context);
         this.setLayoutId(R.layout.view_multiple_choices);
         popupLinear.setOrientation(LinearLayout.VERTICAL);
+        LayoutParams layoutParams=new LayoutParams();
+        layoutParams.height=LayoutParams.WRAP_CONTENT;
+        layoutParams.width=LayoutParams.FILL_PARENT;
+        popupLinear.setLayoutParams(layoutParams);
         popupLinear.setVisibility(View.GONE);
 	}
 	
@@ -58,6 +63,9 @@ public class PopupView {
         popupLinear.measure(0, 0);
         int viewWidth = popupLinear.getMeasuredWidth();
         int viewHeight = popupLinear.getMeasuredHeight();
+        
+        TextView shopName = (TextView) popupView.findViewById(R.id.multiple_choices_title);
+        shopName.setText("Hello Casper");
 
         //LayoutParams layoutParams = new LayoutParams(viewWidth, viewHeight,
         //        item.getPoint(), 0, -60, LayoutParams.WRAP_CONTENT);

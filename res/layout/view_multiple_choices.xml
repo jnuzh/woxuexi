@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
     android:orientation="vertical" >
     
     <TextView
         android:id="@+id/multiple_choices_title"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:gravity="top"
+        android:background="@color/gray"
         android:keepScreenOn="true"
         android:text="Hello"
         android:textColor="#33b5e5"
@@ -18,8 +20,9 @@
     <TextView
         android:id="@+id/multiple_choices_content"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@color/white"
         android:keepScreenOn="true"
         android:text="zzzzzz"
         android:textColor="#33b5e5"

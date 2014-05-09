@@ -13,13 +13,20 @@ import com.nidama.study.data.NPCData;
  */
 public class NPCOverlayItem extends OverlayItem {
 	NPCData npcData;
+	int status=1;
+	public int getStatus(){
+		return status;
+	}
 
 	public NPCOverlayItem(GeoPoint point, String title, String snippet) {
 		super(point, title, snippet);
 	}
 	public NPCOverlayItem(NPCData npcData) {
-		super(npcData.getGeoPoint(),npcData.getWords(),"");
+		super(npcData.getGeoPoint(),npcData.getName(),npcData.getWords());
 		this.npcData=npcData;
+	}
+	public String getSnippet(){
+		return npcData.getWords();
 	}
 	public void onTap()
 	{

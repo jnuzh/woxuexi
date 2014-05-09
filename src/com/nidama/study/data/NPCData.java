@@ -19,7 +19,17 @@ public class NPCData {
 		this.geoPoint=new GeoPoint(latitude,longitude);
 	}
 	
-	String words;
+	String name="";
+	public String getName()
+	{
+		return name;
+	}
+	public void setName(String name)
+	{
+		this.name=name;
+	}
+
+	String words="";
 	public String getWords()
 	{
 		return words;

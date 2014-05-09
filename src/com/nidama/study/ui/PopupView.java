@@ -51,7 +51,7 @@ public class PopupView {
                 popupLinear.setVisibility(View.GONE);
         }
 	}
-	public boolean Show(GeoPoint clickPoint)
+	public boolean Show(GeoPoint clickPoint,Object content)
 	{
 		if(!this.createPopupView())
 			return false;
@@ -64,8 +64,8 @@ public class PopupView {
         int viewWidth = popupLinear.getMeasuredWidth();
         int viewHeight = popupLinear.getMeasuredHeight();
         
-        TextView shopName = (TextView) popupView.findViewById(R.id.multiple_choices_title);
-        shopName.setText("Hello Casper");
+        //TextView shopName = (TextView) popupView.findViewById(R.id.multiple_choices_title);
+        //shopName.setText("Hello Casper");
 
         //LayoutParams layoutParams = new LayoutParams(viewWidth, viewHeight,
         //        item.getPoint(), 0, -60, LayoutParams.WRAP_CONTENT);
@@ -79,11 +79,10 @@ public class PopupView {
         p.y = p.y - viewHeight / 2;
         GeoPoint point = projection.fromPixels(p.x, p.y);
 
-        mapView.getController().animateTo(point);		
+        mapView.getController().animateTo(point);
 		return true;
 	}
-	private boolean createPopupView() {
-        // TODO Auto-generated method stub
+	protected boolean createPopupView() {
         if (layoutId == 0)
             return false;
         if(popupView!=null)return true;
@@ -102,5 +101,4 @@ public class PopupView {
         mapView.addView(popupLinear);
         return true;
 	}
-
 }

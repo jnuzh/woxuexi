@@ -14,7 +14,8 @@ public class NPCManager {
 		if(!isLoad){
 			NPCData npc=new NPCData();
 			npc.setGeoPoint(22.254836, 113.538858);
-			npc.setWords("一起仗剑走天涯");
+			npc.setName("Mr Chen");
+			npc.setWords("仗剑走天涯");
 			NPCers.add(npc);
 			isLoad=true;
 		}

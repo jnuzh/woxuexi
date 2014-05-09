@@ -1,6 +1,7 @@
 package com.nidama.study.ui;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.widget.Toast;
 
 import com.baidu.mapapi.map.ItemizedOverlay;
@@ -13,7 +14,7 @@ import com.nidama.study.engine.NPCManager;
 
 
 public class NPCOverlay extends ItemizedOverlay<OverlayItem> {
-    //private Context context;
+    private Context context;
 	NPCManager npcManager=null;
  
     // 这是弹出窗口的内容部分
@@ -27,10 +28,10 @@ public class NPCOverlay extends ItemizedOverlay<OverlayItem> {
         super(context.getResources().getDrawable(R.drawable.ic_launcher),mapView);
         npcManager=new NPCManager();
         
-        
-        popupView=new PopupView(context, mapView);
+     
+        popupView=new PopupMessageView(context, mapView,R.layout.view_popup_message);
 
-        //this.context=context;
+        this.context=context;
         //this.mapView = mapView;
         
         for( NPCData npcData : npcManager.getNPCers())
@@ -43,12 +44,14 @@ public class NPCOverlay extends ItemizedOverlay<OverlayItem> {
     // 处理当点击事件  
     protected boolean onTap(int i){
     	super.onTap(i);
-        //Toast.makeText(this.mContext, this.getItem(i).getSnippet(), Toast.LENGTH_SHORT).show();  
         // 点击Marker时，该Marker滑动到地图中央偏下的位置，并显示Popup窗口
-        OverlayItem item = getItem(i);
-        popupView.Show(item.getPoint());
+        NPCOverlayItem item = (NPCOverlayItem)getItem(i);
+        if(item.getStatus()==1){
+            Toast.makeText(this.context, this.getItem(i).getSnippet(), Toast.LENGTH_SHORT).show();  
+        }
+        //popupView.Show(item.getPoint(),item.getSnippet());
 
-        return true;
+        return false;
     } 
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mMapView) {

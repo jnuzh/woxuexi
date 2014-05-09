@@ -26,7 +26,7 @@ public class NPCManager {
 	
 	public NPCOverlayItem NPCDataToNPCOverlayItem(NPCData npcData)
 	{
-		NPCOverlayItem npcOverlayItem=new NPCOverlayItem(npcData.getGeoPoint(), npcData.getWords(), "");
+		NPCOverlayItem npcOverlayItem=new NPCOverlayItem(npcData);
 		return npcOverlayItem;
 	}
 

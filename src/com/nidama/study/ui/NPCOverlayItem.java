@@ -25,12 +25,20 @@ public class NPCOverlayItem extends OverlayItem {
 		super(npcData.getGeoPoint(),npcData.getName(),npcData.getWords());
 		this.npcData=npcData;
 	}
+	public boolean lostFocus(ViewManager viewManager,GeoPoint clickPoint)
+	{
+		return viewManager.hide(clickPoint);
+	}
 	public String getSnippet(){
 		return npcData.getWords();
 	}
-	public void onTap()
+	public void onTap(ViewManager viewManager)
 	{
-		
+		if(status==1)
+		{
+			viewManager.showMessage(this.getPoint(), npcData.getWords(), npcData.getName(), null);
+		}
+			
 	}
 
 }

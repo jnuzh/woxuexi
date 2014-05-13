@@ -16,9 +16,9 @@ import com.nidama.study.engine.NPCManager;
 public class NPCOverlay extends ItemizedOverlay<OverlayItem> {
     private Context context;
 	NPCManager npcManager=null;
+	
+	private ViewManager viewManager=null;
  
-    // 这是弹出窗口的内容部分
-	private PopupView popupView=null;
     //private MapView mapView = null;
     
     //private OnTapListener onTapListener = null;
@@ -29,7 +29,7 @@ public class NPCOverlay extends ItemizedOverlay<OverlayItem> {
         npcManager=new NPCManager();
         
      
-        popupView=new PopupMessageView(context, mapView,R.layout.view_popup_message);
+        viewManager=new ViewManager(mapView, context);
 
         this.context=context;
         //this.mapView = mapView;
@@ -40,23 +40,28 @@ public class NPCOverlay extends ItemizedOverlay<OverlayItem> {
         }
     } 
 
+    private NPCOverlayItem tappedItem=null;
     @Override  
     // 处理当点击事件  
     protected boolean onTap(int i){
     	super.onTap(i);
+    	//TODO error with lostFocus
+    	if(tappedItem!=null)tappedItem.lostFocus(viewManager,tappedItem.getPoint());
         // 点击Marker时，该Marker滑动到地图中央偏下的位置，并显示Popup窗口
-        NPCOverlayItem item = (NPCOverlayItem)getItem(i);
-        if(item.getStatus()==1){
-            Toast.makeText(this.context, this.getItem(i).getSnippet(), Toast.LENGTH_SHORT).show();  
-        }
-        //popupView.Show(item.getPoint(),item.getSnippet());
+    	tappedItem = (NPCOverlayItem)getItem(i);
+    	tappedItem.onTap(viewManager);
+        //if(item.getStatus()==1){
+        //    Toast.makeText(this.context, this.getItem(i).getSnippet(), Toast.LENGTH_SHORT).show();  
+        //}
 
         return false;
     } 
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mMapView) {
         // hide the view when mouse click outside view
-    	popupView.Hide(geoPoint);
+    	if(tappedItem!=null){
+    		if(tappedItem.lostFocus(viewManager,geoPoint))tappedItem=null;
+    	}
         return false;
     }    
 }

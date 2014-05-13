@@ -42,14 +42,23 @@ public class PopupView {
         this.layoutId = layoutId;
     }
 
-	public void Hide(GeoPoint geoPoint){
+	public void hide()
+	{
+		if (popupLinear != null && popupLinear.getVisibility() == View.VISIBLE) {
+			popupLinear.setVisibility(View.GONE);
+		}
+	}
+	public boolean hideOutside(GeoPoint geoPoint){
         if (popupLinear != null && popupLinear.getVisibility() == View.VISIBLE) {
             Point tapP = new Point();
             mapView.getProjection().toPixels(geoPoint, tapP);
             if (tapP.x < popupLinear.getLeft() || tapP.y < popupLinear.getTop() || tapP.x > popupLinear.getRight()
-                    || tapP.y > popupLinear.getBottom())
+                    || tapP.y > popupLinear.getBottom()){
                 popupLinear.setVisibility(View.GONE);
+                return true;
+            }
         }
+        return false;
 	}
 	public boolean Show(GeoPoint clickPoint,Object content)
 	{
